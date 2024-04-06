@@ -1,8 +1,10 @@
 body {
-    background-color: gray;
+  background-color: #e6fff2;
   }
   
   form {
+    background-color: white;
+    border-radius: 8px;
     box-sizing: border-box;
     max-width: 100%;
     width: 420px;
@@ -15,6 +17,7 @@ body {
     position: relative;
     min-height: 3rem;
     line-height: 3rem;
+
   }
   .form-group.checkbox {
     line-height: 1.5rem;
@@ -27,14 +30,14 @@ body {
     z-index: 2;
     height: 3rem;
     line-height: 3rem;
-    color: #00ff33;
+    color: #065f46;
     padding: 0 15px;
     font-size: 1rem;
     font-weight: 400;
     transition: all 0.2s;
   }
   .form-group .form-field {
-    border: 1px solid #00ff6a;
+    border: 1px solid #34d399; 
     transition-property: border, box-shadow;
     transition-duration: 0.2s;
     text-indent: 0.01px;
@@ -93,7 +96,7 @@ body {
   .form-group .form-field:focus,
   .form-group input[type="checkbox"]:focus {
     box-shadow: 0 0 4px 3px rgba(85, 155, 47, 0.2);
-    border: 1px solid #3dd513;
+    border-color: #065f46;
     outline: none;
   }
   .form-group .form-field + label,
@@ -112,6 +115,7 @@ body {
     z-index: 3;
     margin-top: 2px;
     background: #e66051;
+    color: #e66051; 
     max-width: calc(100% - 10px);
     padding: 5px 10px 5px 30px;
     border-radius: 4px;
@@ -137,7 +141,7 @@ body {
     left: 10px;
   }
   .form-group .form-submit {
-    background: #3b93f7;
+    background-color: #34d399;
     color: white;
     font-weight: 600;
     font-size: 1.2rem;
@@ -146,7 +150,7 @@ body {
     cursor: pointer;
   }
   .form-group .form-submit:hover {
-    background: #0a78f5;
+    background-color: #065f46;
     transform: translateY(-2px);
   }
   .form-group .form-submit:active {
@@ -161,7 +165,7 @@ body {
     width: 3rem;
     text-align: center;
     z-index: 2;
-    color: #1eff00;
+    color: #34d399;
     pointer-events: none;
     transition: color 0.2s;
     animation: none;
@@ -172,9 +176,10 @@ body {
     padding-left: 3rem;
   }
   .form-group.moved::before {
-    color: #0fe500;
+    color: #e66051; 
     animation: iconPinch 0.3s ease-in-out;
   }
+  
   .form-group.moved label.movable {
     top: -1.5rem;
     height: 1rem;

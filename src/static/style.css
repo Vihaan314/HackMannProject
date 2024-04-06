@@ -1,4 +1,37 @@
-body {
-    font-family: "Courier New", Courier, monospace;
-      background-color: #ffffff;
-  }
+nav {
+  background-color: #34d399; 
+}
+
+.logo {
+  height: 50px; 
+}
+
+.sidebar {
+  background-color: #065f46; 
+}
+
+.sidebar a {
+  color: #ffffff;
+  transition: background-color 0.3s;
+}
+
+.sidebar a:hover, .sidebar a.active {
+  background-color: #047857; 
+}
+
+main {
+  background-color: #ecfdf5; 
+}
+
+#userMenuDropdown.hidden {
+  display: none;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

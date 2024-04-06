@@ -1,19 +1,59 @@
-{% extends "base.html" %}{% block title %}Brewery{% endblock %}
+{% extends "base.html" %}
+{% block title %}Mind Garden{% endblock %}
 {% block content %}
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css"  rel="stylesheet" />
-
-<!-- Main website code-->
-
-<div>
-  <h1>Welcome {{userName}}</h1>
+<div class="flex flex-col min-h-screen">
+    <nav class="bg-green-500 text-white flex justify-between items-center p-4">
+        <img src="{{ url_for('static', filename='mindGardenLogo.png') }}" alt="Mind Garden Logo" class="h-10">
+        <span class="text-xl font-bold">Mind Garden</span>
+        <div class="relative">
+            <button class="focus:outline-none focus:ring" onclick="document.getElementById('userMenuDropdown').classList.toggle('hidden');">
+              <i class="fas fa-user-circle text-3xl"></i>
+            </button>
+            <div id="userMenuDropdown" class="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl hidden">
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{{userName}}</a>
+                <a href="{{ url_for('auth.logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+            </div>
+        </div>
+    </nav>
+    <div class="flex flex-1">
+        <aside class="w-64 bg-green-700 text-white">
+            <div class="py-4 px-3 min-h-0">
+                <ul class="space-y-2">
+                    <li><a href="#" class="block p-2 rounded hover:bg-green-600 transition duration-300" data-target="dashboard">Dashboard</a></li>
+                    <li><a href="#" class="block p-2 rounded hover:bg-green-600 transition duration-300" data-target="mood-tracking">Mood Tracking</a></li>
+                    <li><a href="#" class="block p-2 rounded hover:bg-green-600 transition duration-300" data-target="mindfulness-meditation">Mindfulness & Meditation</a></li>
+                    <li><a href="#" class="block p-2 rounded hover:bg-green-600 transition duration-300" data-target="cbt-exercises">CBT Exercises</a></li>
+                </ul>
+            </div>
+        </aside>
+        <main class="flex-1 bg-green-100">
+            <div class="p-4">
+                <div id="dashboard" class="content-section active"><h1>Dashboard</h1><p>This is the dashboard section.</p></div>
+                <div id="mood-tracking" class="content-section hidden"><h1>Mood Tracking</h1><p>This is the mood tracking section.</p></div>
+                <div id="mindfulness-meditation" class="content-section hidden">
+                    <h1>Mindfulness & Meditation</h1>
+                    <p>Explore mindfulness and meditation techniques to improve mental well-being.</p>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="card hover:shadow-lg">
+                            <h2 class="font-bold">Breathing Exercise</h2>
+                            <p>Learn to control your breath to reduce stress and improve focus.</p>
+                            <button class="rounded bg-green-200 hover:bg-green-300 p-2 mt-2">Start Exercise</button>
+                        </div>
+                        <div class="card hover:shadow-lg">
+                            <h2 class="font-bold">Guided Meditation</h2>
+                            <p>Follow a guided meditation session to find inner peace.</p>
+                            <button class="rounded bg-green-200 hover:bg-green-300 p-2 mt-2">Start Exercise</button>
+                        </div>
+                        <div class="card hover:shadow-lg">
+                            <h2 class="font-bold">Body Scan Meditation</h2>
+                            <p>Pay attention to various parts of your body to achieve a full body relaxation.</p>
+                            <button class="rounded bg-green-200 hover:bg-green-300 p-2 mt-2">Start Exercise</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="cbt-exercises" class="content-section hidden"><h1>CBT Exercises</h1><p>This is the CBT exercises section.</p></div>
+            </div>
+        </main>
+    </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
-
 {% endblock %}
