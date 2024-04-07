@@ -1,33 +1,3 @@
-{% extends "base.html" %}
-{% block title %}Counseling{% endblock %}
-{% block content %}
-<div class="flex flex-row min-h-screen">
-    <div id="past-conversations" class="w-1/3 bg-green-100 overflow-auto">
-        <h2 class="text-lg font-bold p-4">Past Conversations</h2>
-        <ul id="conversation-list" class="list-none p-4">
-            <!-- Past conversations here -->
-        </ul>
-        <button id="start-new-chat" class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded m-4">
-            Start New Chat
-        </button>
-    </div>
-    <div class="w-2/3 flex flex-col chat-area">
-        <div id="chat-container" class="flex-grow bg-white p-4 overflow-auto">
-            <!-- Active conversation here -->
-        </div>
-        <div class="bg-white p-4">
-            <form id="chat-form">
-                <textarea id="message-input" name="message" class="w-full rounded border p-2" rows="3" placeholder="Type your message..."></textarea>
-                <button type="submit" class="bg-green-500 hover:bg-green-600 text-white p-2 rounded mt-2">Send</button>
-                <button type="button" id="save-conversation" class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded mt-2">Save Conversation</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-<script type="text/javascript">
-
 if (typeof chatForm === 'undefined') {
     loadConversationHistory();
     const chatForm = document.getElementById('chat-form');
@@ -123,12 +93,10 @@ if (typeof chatForm === 'undefined') {
             const chatContainer = document.getElementById('chat-container');
             chatContainer.innerHTML = '';  
             messages.forEach((msg, index) => {
-                const className = (index) % 2 === 0 ? 'user-message' : 'ai-message';
+                const className = index % 2 === 0 ? 'user-message' : 'ai-message';
                 appendMessage(msg, className);
             });
         });
 }
 
 }
-</script>
-{% endblock %}

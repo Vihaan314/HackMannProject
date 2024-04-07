@@ -2,19 +2,24 @@ from src import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 
+class Conversation(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime(timezone=True), default=func.now())
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    messages = db.relationship("Message", backref="conversation", lazy=True)
+
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.String(10000))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    conversation_id = db.Column(db.Integer, db.ForeignKey("conversation.id"))
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
-    
-    messages = db.relationship("Message")
+    conversations = db.relationship("Conversation", backref="user", lazy=True)
 
     def __init__(self, email, first_name, password):
         self.email = email
