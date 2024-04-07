@@ -10,14 +10,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetId = this.getAttribute('data-target');
             contentSections.forEach(section => {
                 if (targetId === 'counseling') {
-                    document.getElementById('counseling-content').classList.remove('hidden');
-                    document.getElementById('counseling-content').classList.add('fade-in');
-                    document.getElementById('counseling-content').classList.add('active');
-
+   
                     fetch(counselingUrl)
                     .then(response => response.text())
                     .then(html => {
-                        document.getElementById('counseling-content').innerHTML = html;
+                        const counselingContent = document.getElementById('counseling-content');
+                        counselingContent.innerHTML = html;
+                        counselingContent.classList.remove('hidden');
+                        counselingContent.classList.add('fade-in');
+                        counselingContent.classList.add('active');
+                        evalScripts(counselingContent);
+    
                     });
                     } else {
                         document.getElementById('counseling-content').classList.add('hidden');
@@ -45,3 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+function evalScripts(element) {
+    element.querySelectorAll('script').forEach(oldScript => {
+        const newScript = document.createElement('script');
+        newScript.text = oldScript.text;
+        oldScript.parentNode.replaceChild(newScript, oldScript);
+    });
+}
