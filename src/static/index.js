@@ -5,10 +5,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     navLinks.forEach(link => {
         link.addEventListener('click', function (e) {
-            e.preventDefault();
+            // e.preventDefault();
 
             const targetId = this.getAttribute('data-target');
             contentSections.forEach(section => {
+                if (targetId === 'counseling') {
+                    document.getElementById('counseling-content').classList.remove('hidden');
+                    document.getElementById('counseling-content').classList.add('fade-in');
+                    document.getElementById('counseling-content').classList.add('active');
+
+                    fetch(counselingUrl)
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById('counseling-content').innerHTML = html;
+                    });
+                    } else {
+                        document.getElementById('counseling-content').classList.add('hidden');
+                        document.getElementById('counseling-content').classList.remove('fade-in');
+                        document.getElementById('counseling-content').classList.remove('active');
+                    }
+                
                 if (section.id === targetId) {
                     section.classList.remove('hidden');
                     section.classList.add('fade-in');
@@ -17,7 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     section.classList.add('hidden');
                     section.classList.remove('fade-in');
                     section.classList.remove("active")
-                }
+                
+            }
             });
 
             navLinks.forEach(link => {

@@ -13,7 +13,6 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
-    about_me = db.Column(db.String(20000), default="")
     
     messages = db.relationship("Message")
 
@@ -21,4 +20,3 @@ class User(db.Model, UserMixin):
         self.email = email
         self.password = password
         self.first_name = first_name
-        self.about_me = "I like cheese"

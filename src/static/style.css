@@ -35,3 +35,39 @@ main {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+
+/* Counseling page styling */
+
+/* Counseling page specific styles */
+#chat-container {
+  min-height: 300px;
+  max-height: 500px;
+  overflow-y: auto;
+  background-color: #f0f4f8;
+}
+
+#chat-container .message {
+  margin-bottom: 12px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+#chat-container .user-message {
+  background-color: #d1e7dd;
+  align-self: flex-end;
+}
+
+#chat-container .ai-message {
+  background-color: #fde2e4;
+  align-self: flex-start;
+}
+
+#message-input {
+  border: 1px solid #ccc;
+}
+
+#send-message,
+#save-conversation {
+  cursor: pointer;
+}

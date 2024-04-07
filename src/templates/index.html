@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Mind Garden{% endblock %}
 {% block content %}
+<script type="text/javascript">
+  var counselingUrl = "{{ url_for('views.counseling') }}";
+</script>
 <div class="flex flex-col min-h-screen">
     <nav class="bg-green-500 text-white flex justify-between items-center p-4">
         <img src="{{ url_for('static', filename='mindGardenLogo.png') }}" alt="Mind Garden Logo" class="h-10">
@@ -23,12 +26,45 @@
                     <li><a href="#" class="block p-2 rounded hover:bg-green-600 transition duration-300" data-target="mood-tracking">Mood Tracking</a></li>
                     <li><a href="#" class="block p-2 rounded hover:bg-green-600 transition duration-300" data-target="mindfulness-meditation">Mindfulness & Meditation</a></li>
                     <li><a href="#" class="block p-2 rounded hover:bg-green-600 transition duration-300" data-target="cbt-exercises">CBT Exercises</a></li>
+                    <li>
+                      <a class="block p-2 rounded hover:bg-green-600 transition duration-300" data-target="counseling">Counseling</a>
+                    </li>
                 </ul>
             </div>
         </aside>
-        <main class="flex-1 bg-green-100">
+        <aside class="flex-1 bg-green-100">
             <div class="p-4">
-                <div id="dashboard" class="content-section active"><h1>Dashboard</h1><p>This is the dashboard section.</p></div>
+                <div id="dashboard" class="content-section active">
+                    <h1>Dashboard</h1>
+                    <p>This is the dashboard section.</p>
+                    <br>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="card hover:shadow-lg">
+                            <h2 class="font-bold">Mood Tracking</h2>
+                            <p>Mood Tracking Description</p>
+                            <br>
+                            <a data-target="mood-tracking" class="rounded bg-green-200 hover:bg-green-300 p-2 mt-2">Visit</a>
+                        </div>
+                        <div class="card hover:shadow-lg">
+                            <h2 class="font-bold">Mindfulness & Meditation</h2>
+                            <p>Mindfulness & Meditation Description</p>
+                            <br>
+                            <a data-target="mindfulness-meditation" class="rounded bg-green-200 hover:bg-green-300 p-2 mt-2">Visit</a>
+                        </div>
+                        <div class="card hover:shadow-lg">
+                            <h2 class="font-bold">CBT Excercises</h2>
+                            <p>CBT Excercies Description</p>
+                            <br>
+                            <a data-target = "cbt-exercises" class="rounded bg-green-200 hover:bg-green-300 p-2 mt-2">Visit</a>
+                        </div>
+                        <div class="card hover:shadow-lg">
+                          <h2 class="font-bold">Counselor</h2>
+                          <p>Chat with a counselor one-on-one, who can help you solve your problems</p>
+                          <br>
+                          <a data-target = "counseling" class="rounded bg-green-200 hover:bg-green-300 p-2 mt-2">Visit</a>
+                      </div>
+                    </div>
+                </div>
                 <div id="mood-tracking" class="content-section hidden"><h1>Mood Tracking</h1><p>This is the mood tracking section.</p></div>
                 <div id="mindfulness-meditation" class="content-section hidden">
                     <h1>Mindfulness & Meditation</h1>
@@ -52,8 +88,11 @@
                     </div>
                 </div>
                 <div id="cbt-exercises" class="content-section hidden"><h1>CBT Exercises</h1><p>This is the CBT exercises section.</p></div>
+                <div id="counseling-content" class="flex-1 bg-gray-100 hidden">
+                  <!-- Counseling content is loaded from counseling.html -->
+              </div>
             </div>
-        </main>
+        </aside>
     </div>
 </div>
 {% endblock %}
