@@ -26,9 +26,33 @@
                 </ul>
             </div>
         </aside>
-        <main class="flex-1 bg-green-100">
+        <aside class="flex-1 bg-green-100">
             <div class="p-4">
-                <div id="dashboard" class="content-section active"><h1>Dashboard</h1><p>This is the dashboard section.</p></div>
+                <div id="dashboard" class="content-section active">
+                    <h1>Dashboard</h1>
+                    <p>This is the dashboard section.</p>
+                    <br>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="card hover:shadow-lg">
+                            <h2 class="font-bold">Mood Tracking</h2>
+                            <p>Mood Tracking Description</p>
+                            <br>
+                            <a data-target="mood-tracking" class="rounded bg-green-200 hover:bg-green-300 p-2 mt-2">Visit</a>
+                        </div>
+                        <div class="card hover:shadow-lg">
+                            <h2 class="font-bold">Mindfulness & Meditation</h2>
+                            <p>Mindfulness & Meditation Description</p>
+                            <br>
+                            <a data-target="mindfulness-meditation" class="rounded bg-green-200 hover:bg-green-300 p-2 mt-2">Visit</a>
+                        </div>
+                        <div class="card hover:shadow-lg">
+                            <h2 class="font-bold">CBT Excercises</h2>
+                            <p>CBT Excercies Description</p>
+                            <br>
+                            <a class="rounded bg-green-200 hover:bg-green-300 p-2 mt-2">Visit</a>
+                        </div>
+                    </div>
+                </div>
                 <div id="mood-tracking" class="content-section hidden"><h1>Mood Tracking</h1><p>This is the mood tracking section.</p></div>
                 <div id="mindfulness-meditation" class="content-section hidden">
                     <h1>Mindfulness & Meditation</h1>
@@ -53,7 +77,7 @@
                 </div>
                 <div id="cbt-exercises" class="content-section hidden"><h1>CBT Exercises</h1><p>This is the CBT exercises section.</p></div>
             </div>
-        </main>
+        </aside>
     </div>
 </div>
 {% endblock %}
