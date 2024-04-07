@@ -9,27 +9,31 @@ import openai
 
 views = Blueprint('views', __name__)
 
+##Main page render
+
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def index():    
-    if request.method == "POST":
-        pass  # Handle POST request if necessary
-
     return render_template("index.html", user=current_user, userName=current_user.first_name)
 
+
+##Counseling page routing
+
+#Counseling page render
 @views.route('/counseling')
 def counseling():
     return render_template('counseling.html')
 
+#Message handling - user message and api response
 @views.route('/counseling/chat', methods=['POST'])
 def chat():
     client = openai.OpenAI(api_key=os.getenv('OPENAI-GPT-KEY'))
-
-    print("YOO")
     user_message = request.json['message']
     conversation = session.get('conversation', [])
 
-    conversation.append({'role': 'system', 'content': "You are a mental health therapist who spreads mental health awareness. You will start a conversation with somebody who wants your help to fix their problems, and keep your responses relatively short."})
+    if not conversation:
+        initial_system_message = "You are a mental health therapist who spreads mental health awareness. You will start a conversation with somebody who wants your help to fix their problems, and keep your responses relatively short."
+        conversation.append({'role': 'system', 'content': initial_system_message})
 
     conversation.append({'role': 'user', 'content': user_message})
     
@@ -37,7 +41,7 @@ def chat():
         model='gpt-4-turbo-preview',
         messages=conversation,
         temperature=0,
-        max_tokens = 100
+        max_tokens=100
     )
 
     ai_message = response.choices[0].message.content
@@ -46,6 +50,7 @@ def chat():
 
     return jsonify({'ai_response': ai_message})
 
+#Saving a conversation
 @views.route('/counseling/save', methods=['POST'])
 def save_conversation():
     conversation = Conversation(user_id=current_user.id)
@@ -61,7 +66,7 @@ def save_conversation():
     flash('Saved conversation', category='success')
     return jsonify({'status': 'Conversation saved'})
 
-
+#Getting user counseling history
 @views.route('/counseling/history')
 def get_conversation_history():
     conversations = Conversation.query.filter_by(user_id=current_user.id).all()
@@ -69,12 +74,13 @@ def get_conversation_history():
         {
             "id": convo.id,
             "date": convo.date.strftime('%Y-%m-%d %H:%M:%S'),
-            "snippet": convo.messages[0].data[:50] if convo.messages else "No messages"
+            "snippet": convo.messages[1].data[:50] if convo.messages else "No messages"
         } 
         for convo in conversations
     ]
     return jsonify(formatted_conversations)
 
+#Specific past conversation
 @views.route('/counseling/conversation/<int:convo_id>')
 def get_conversation_messages(convo_id):
     conversation = Conversation.query.get_or_404(convo_id)
@@ -87,7 +93,16 @@ def get_conversation_messages(convo_id):
 
     return jsonify([msg['content'] for msg in messages[1:]])
 
+#Create new conversation
 @views.route('/counseling/start_new', methods=['POST'])
 def start_new_conversation():
     session['conversation'] = []  
     return jsonify({'status': 'New conversation started'})
+
+
+##Mood tracking routing
+
+#Main mood tracking page
+@views.route('/mood_tracking')
+def mood_tracking():
+    return render_template('mood_tracking.html')

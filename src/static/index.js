@@ -5,12 +5,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     navLinks.forEach(link => {
         link.addEventListener('click', function (e) {
-            // e.preventDefault();
+            e.preventDefault();
 
             const targetId = this.getAttribute('data-target');
             contentSections.forEach(section => {
+                if (targetId === 'mood_tracking') {
+                    fetch(moodTrackingUrl)
+                    .then(response => response.text())
+                    .then(html => {
+                        const moodTrackingContent = document.getElementById('mood_tracking-content');
+                        moodTrackingContent.innerHTML = html;
+                        moodTrackingContent.classList.remove('hidden');
+                        moodTrackingContent.classList.add('fade-in');
+                        moodTrackingContent.classList.add('active');
+                        evalScripts(moodTrackingContent);
+    
+                    });
+                    } else {
+                        document.getElementById('mood_tracking-content').classList.add('hidden');
+                        document.getElementById('mood_tracking-content').classList.remove('fade-in');
+                        document.getElementById('mood_tracking-content').classList.remove('active');
+                    }
+
                 if (targetId === 'counseling') {
-   
                     fetch(counselingUrl)
                     .then(response => response.text())
                     .then(html => {
@@ -48,6 +65,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+document.querySelectorAll('.back-button').forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetSection = this.getAttribute('data-target');
+        document.getElementById(targetSection).classList.remove('hidden');
+
+        document.querySelectorAll('.content-section').forEach(section => {
+            if (section.id !== targetSection) {
+                section.classList.add('hidden');
+            }
+        });
+    });
+});
+
 
 function evalScripts(element) {
     element.querySelectorAll('script').forEach(oldScript => {
