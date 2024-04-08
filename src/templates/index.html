@@ -14,7 +14,7 @@
               <i class="fas fa-user-circle text-3xl"></i>
             </button>
             <div id="userMenuDropdown" class="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl hidden">
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{{userName}}</a>
+                <p href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{{userName}}</p>
                 <a href="{{ url_for('auth.logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
             </div>
         </div>
@@ -37,10 +37,8 @@
             <div class="p-4">
                 <!-- Dashboard section -->
                 <div id="dashboard" class="content-section active">
-                    <h1 class="font-bold" style="font-size: xx-large;">Dashboard</h1><br>
-                    <p>Access all that MindGarden has to offer!</p><br>
                     <span class="shadowtext">Dashboard</span>
-                    <br>
+                    <p>Access all that MindGarden has to offer!</p><br>
                     <div class="grid grid-cols-3 gap-4">
                         <div class="card hover:shadow-lg">
                             <h2 class="font-bold">Mood Tracking</h2>
@@ -224,6 +222,9 @@
                 </div>    
      
                 <div id="thought-stopping"class="content-section hidden">
+                    <a href="#" class="back-button bg-green-100" data-target="cbt-exercises">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
                     <h1 class="font-bold" style="font-size: xx-large;">Thought Stopping</h1><br>
                     <p>Thought stopping is a cognitive behavioral technique designed to interrupt and challenge intrusive or negative thoughts. Here's a step-by-step guide for practicing self-guided thought stopping:</p><br>
                     <h1 class="font-bold">Step 1: Recognize the Intrusive Thought</h1>
@@ -248,6 +249,9 @@
                     <p>By regularly practicing self-guided thought stopping, you can gain more control over intrusive thoughts and cultivate a more positive and peaceful mental state. If you find persistent difficulty with intrusive thoughts, consider seeking support from a mental health professional for further guidance and strategies tailored to your needs.</p>
                 </div>
                 <div id="behavioral-activation"class="content-section hidden">
+                    <a href="#" class="back-button bg-green-100" data-target="cbt-exercises">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
                     <h1 class="font-bold" style="font-size: xx-large;">Behavioral Activation</h1><br>
                     <p>Behavioral activation is a core component of cognitive behavioral therapy (CBT) aimed at increasing engagement in meaningful and enjoyable activities to alleviate symptoms of depression or low mood. Here's a step-by-step guide for practicing self-guided behavioral activation:</p><br>
                     <h1 class="font-bold">Step 1: Identify Values and Goals</h1>
@@ -278,6 +282,9 @@
                 </p>
                 </div>
                 <div id="graded-exposure"class="content-section hidden">
+                    <a href="#" class="back-button bg-green-100" data-target="cbt-exercises">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
                     <h1 class="font-bold" style="font-size: xx-large;">Graded Exposure</h1><br>
                     <p>Graded exposure is a behavioral therapy technique used to help individuals overcome fears and anxieties by gradually and systematically confronting feared situations or stimuli. Here's a step-by-step guide for practicing self-guided graded exposure:</p><br>
                     <h1 class="font-bold">Step 1: Identify the Fear</h1>

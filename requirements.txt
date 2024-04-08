@@ -3,3 +3,5 @@ Flask_Login
 flask_sqlalchemy
 SQLAlchemy
 Werkzeug==2.3.8
+openai
+python-dotenv

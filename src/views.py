@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, jsonify, session, redirect, url_for
 from flask_login import login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from .models import User, Message, Conversation
+from .models import User, Message, Conversation, DiaryEntry
 from . import db
 
 import os
@@ -106,3 +106,23 @@ def start_new_conversation():
 @views.route('/mood_tracking')
 def mood_tracking():
     return render_template('mood_tracking.html')
+
+@views.route('/mood_tracking/save_entry', methods=['POST'])
+def save_entry():
+    content = request.json['content']
+    new_entry = DiaryEntry(content=content, user_id=current_user.id)
+    db.session.add(new_entry)
+    db.session.commit()
+    return jsonify({"success": True, "entry_id": new_entry.id})
+
+@views.route('/mood_tracking/get_entries', methods=['GET'])
+def get_entries():
+    entries = DiaryEntry.query.filter_by(user_id=current_user.id).all()
+    entries_data = [{"id": entry.id, "content": entry.content, "date_posted": entry.date_posted.strftime("%Y-%m-%d %H:%M:%S")} for entry in entries]
+    return jsonify(entries_data)
+
+@views.route('/mood_tracking/create_analysis', methods=['GET'])
+def create_analysis():
+    #Sentiment analysis
+    entries = DiaryEntry.query.filter_by(user_id=current_user.id).all()
+    print(entries)

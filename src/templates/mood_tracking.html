@@ -1,15 +1,145 @@
 {% extends "base.html" %}
 {% block title %}Counseling{% endblock %}
 {% block content %}
-<div class="flex flex-row min-h-screen bg-green-100">
-    
+<div class="flex flex-col min-h-screen bg-green-100">
+    <div class="tabs bg-green-200 flex justify-around">
+        <button class="tab-button bg-green-300 p-2 rounded" data-target="diary">Diary</button>
+        <button class="tab-button bg-green-300 p-2 rounded" data-target="analysis">Analysis</button>
+    </div>
+    <div id="diary" class="mood-content-section">
+        <h2 class="text-lg font-bold p-4">Your Diary</h2>
+        <button id="add-entry" class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded m-4">Add Entry</button>
+        <div id="diary-list" class="p-4">
+            <!-- Diary entries will be loaded here -->
+        </div>
+    </div>
+    <div id="analysis" class="mood-content-section hidden">
+        <h2 class="text-lg font-bold p-4">Analysis</h2>
+        <p class="p-4">Insights based on your diary entries.</p>
+        <!-- Analysis content here -->
+    </div>
+</div>
+
+<div id="entry-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+        <div class="mt-3 text-center">
+            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+            
+            </div>
+            <h3 class="text-lg leading-6 font-medium text-gray-900">Add New Diary Entry</h3>
+            <div class="mt-2 px-7 py-3">
+                <textarea id="new-entry-content" class="textarea textarea-bordered w-full" placeholder="Your diary entry..."></textarea>
+            </div>
+            <div class="items-center px-4 py-3">
+                <button id="save-entry" class="btn btn-primary">Save Entry</button>
+                <button id="close-modal" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 <script type="text/javascript">
 
-if (typeof chatForm === 'undefined') {
+if (typeof tabButtons === 'undefined') {
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const contentSections = document.querySelectorAll('.mood-content-section');
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const target = button.getAttribute('data-target');
+            contentSections.forEach(section => {
+                if (section.id === target) {
+                    section.classList.remove('hidden');
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+        });
+    });
     
+    const addEntryButton = document.getElementById('add-entry');
+    const modal = document.getElementById('entry-modal');
+    const closeModalButton = document.getElementById('close-modal');
+    const saveEntryButton = document.getElementById('save-entry');
+
+    addEntryButton.addEventListener('click', () => {
+        modal.classList.remove('hidden');
+    });
+
+    closeModalButton.addEventListener('click', () => {
+        modal.classList.add('hidden');
+    });
+
+    addEntryButton.addEventListener('click', () => {
+        modal.classList.remove('hidden');
+    });
+
+    closeModalButton.addEventListener('click', () => {
+        modal.classList.add('hidden');
+    });
+
+    saveEntryButton.addEventListener('click', () => {
+        const content = document.getElementById('new-entry-content').value;
+        fetch('/mood_tracking/save_entry', {
+            method: 'POST',
+            body: JSON.stringify({ content: content }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Entry saved:', data);
+            modal.classList.add('hidden');
+            // Optionally refresh the diary entries list
+        })
+        .catch(error => console.error('Error saving entry:', error));
+    });
+
+    function loadDiaryEntries() {
+        fetch('/mood_tracking/get_entries')
+        .then(response => response.json())
+        .then(entries => {
+            const diaryList = document.getElementById('diary-list');
+            diaryList.innerHTML = '';
+
+            const entriesByDate = groupEntriesByDate(entries);
+
+            Object.keys(entriesByDate).forEach(date => {
+                const dateHeader = document.createElement('h3');
+                dateHeader.textContent = date;
+                dateHeader.className = 'font-bold text-lg';
+                diaryList.appendChild(dateHeader);
+
+                entriesByDate[date].forEach(entry => {
+                    const entryElement = document.createElement('div');
+                    entryElement.className = 'entry bg-white p-4 rounded-lg shadow mb-4';
+
+                    const contentElement = document.createElement('p');
+                    contentElement.textContent = entry.content;
+
+                    entryElement.appendChild(contentElement);
+                    diaryList.appendChild(entryElement);
+                });
+            });
+        })
+        .catch(error => console.error('Error loading entries:', error));
+    }
+
+    function groupEntriesByDate(entries) {
+        return entries.reduce((acc, entry) => {
+            const date = entry.date_posted.split(' ')[0];
+            console.log(date)
+            if (!acc[date]) {
+                acc[date] = [];
+            }
+            acc[date].push(entry);
+            return acc;
+        }, {});
+    }
+
+    loadDiaryEntries();
 }
 
 </script>

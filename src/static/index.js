@@ -48,13 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (section.id === targetId) {
                     section.classList.remove('hidden');
                     section.classList.add('fade-in');
-                    section.classList.add("active")
+                    section.classList.add("active");
                 } else {
                     section.classList.add('hidden');
                     section.classList.remove('fade-in');
-                    section.classList.remove("active")
-                
-            }
+                    section.classList.remove("active");
+                }
             });
 
             navLinks.forEach(link => {
